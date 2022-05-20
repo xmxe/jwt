@@ -1,48 +1,65 @@
 package com.xmxe.config;
 
-import com.xmxe.service.CustomAuthenticationProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)//开启基于方法的认证 只有添加此注解 才能在方法上使用类似于@PreAuthorize("hasRole(‘admin‘)")来控制权限
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// 设置 HTTP 验证规则
+	// 自定义用户访问无权限资源时的异常
+	@Autowired
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+	@Autowired
+	private UserDetailsService jwtUserDetailsService;
+
+	// 接收请求 校验是否携带token并解析
+	@Autowired
+	private JwtRequestFilter jwtRequestFilter;
+
+	// @Autowired注解在方法上 如果有参数的话会查看参数是否在spring容器中注册 并执行此方法
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		// configure AuthenticationManager so that it knows from where to load
+		// user for matching credentials
+		// Use BCryptPasswordEncoder
+		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// 关闭csrf验证
-		http.csrf().disable()
-				// 对请求进行认证
-				.authorizeRequests()
-				// 所有 / 的所有请求 都放行
-				.antMatchers("/").permitAll()
-				// 所有 /login 的POST请求 都放行
-				.antMatchers(HttpMethod.POST, "/login").permitAll()
-				// 权限检查
-				.antMatchers("/hello").hasAuthority("AUTH_WRITE")
-				// 角色检查
-				.antMatchers("/world").hasRole("ADMIN")
-				// 所有请求需要身份认证
-				.anyRequest().authenticated()
-				.and()
-				// 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
-				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class)
-				// 添加一个过滤器验证其他请求的Token是否合法
-				.addFilterBefore(new JWTAuthenticationFilter(),
-						UsernamePasswordAuthenticationFilter.class);
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// 使用自定义身份验证组件
-		auth.authenticationProvider(new CustomAuthenticationProvider());
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.csrf().disable()
+				.authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated()
+				.and()
+				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)// 配置认证失败时的调用
+				.and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);// session创建策略 这里指定永远不会创建session
 
+		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }

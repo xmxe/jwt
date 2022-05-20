@@ -5,8 +5,8 @@
 
 	<groupId>com.xmxe</groupId>
 	<artifactId>jwt</artifactId>
-	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<description>JWT Project</description>
 
 	<modules>
