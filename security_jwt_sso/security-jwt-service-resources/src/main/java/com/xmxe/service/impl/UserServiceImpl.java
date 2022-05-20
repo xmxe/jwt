@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserPojo user = mapper.queryByUserName(s);
-
         return user;
     }
 }

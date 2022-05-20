@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class JwtTest {
-    private String privateKey = "c:/tools/auth_key/id_key_rsa";
+    private String privateKey = "c:/e/import/id_key_rsa";
 
-    private String publicKey = "c:/tools/auth_key/id_key_rsa.pub";
+    private String publicKey = "c:/e/import/id_key_rsa.pub";
 
     @Test
     public void test1() throws Exception{
@@ -19,7 +19,7 @@ public class JwtTest {
     @Test
     public void test2(){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        System.out.println(bCryptPasswordEncoder.encode("123123"));
+        System.out.println(bCryptPasswordEncoder.encode("jwt"));
 
         //PasswordEncoder passwordEncoder = new PasswordEncoder() ;
     }

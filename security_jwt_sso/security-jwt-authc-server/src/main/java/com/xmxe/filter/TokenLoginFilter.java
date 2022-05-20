@@ -35,13 +35,20 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         this.prop = prop;
     }
 
+    /**
+     * 校验登录时触发
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-
+            // 接收前端发送的json流
             UserPojo sysUser = new ObjectMapper().readValue(request.getInputStream(), UserPojo.class);
-
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(sysUser.getUsername(), sysUser.getPassword());
-
+            // 验证用户 成功时返回给successfulAuthentication()的Authentication参数
             return authenticationManager.authenticate(authRequest);
         }catch (Exception e){
             try {
@@ -61,11 +68,22 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         }
     }
 
+    /**
+     * 校验成功时触发
+     * @param request
+     * @param response
+     * @param chain
+     * @param authResult
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
     public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         UserPojo user = new UserPojo();
         user.setUsername(authResult.getName());
         user.setRoles((List<RolePojo>)authResult.getAuthorities());
         String token = JwtUtils.generateTokenExpireInMinutes(user, prop.getPrivateKey(), 24 * 60);
+        // 返回token
         response.addHeader("Authorization", "Bearer "+token);
         try {
             response.setContentType("application/json;charset=utf-8");
@@ -80,5 +98,20 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         }catch (Exception outEx){
             outEx.printStackTrace();
         }
+    }
+
+    /**
+     * 校验失败时触发
+     * @param request
+     * @param response
+     * @param failed
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getOutputStream().println( "Internal Server Error!!!");
     }
 }

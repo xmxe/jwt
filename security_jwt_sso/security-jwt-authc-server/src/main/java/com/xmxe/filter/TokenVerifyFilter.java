@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- 自定义校验token的过滤器
+ * 自定义校验token的过滤器
  */
 public class TokenVerifyFilter  extends BasicAuthenticationFilter {
     private RsaKeyProperties prop;
@@ -31,6 +31,15 @@ public class TokenVerifyFilter  extends BasicAuthenticationFilter {
         this.prop = prop;
     }
 
+    /**
+     * 接受请求时校验是否携带token 并解析
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {

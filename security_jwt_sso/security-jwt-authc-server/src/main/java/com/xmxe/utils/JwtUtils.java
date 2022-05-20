@@ -14,7 +14,6 @@ import java.util.Base64;
 import java.util.UUID;
 
 /**
- * @author: 波波烤鸭
  * 生成token以及校验token相关方法
  */
 public class JwtUtils {

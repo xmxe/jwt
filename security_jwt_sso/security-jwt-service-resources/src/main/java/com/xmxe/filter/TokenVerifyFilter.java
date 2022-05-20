@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- 自定义校验token的过滤器
+ * 自定义校验token的过滤器
  */
 public class TokenVerifyFilter  extends BasicAuthenticationFilter {
     private RsaKeyProperties prop;

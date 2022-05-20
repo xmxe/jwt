@@ -7,7 +7,8 @@
     <artifactId>security-jwt-authc-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>security-jwt-authc-server</name>
-    <description>Demo project for Spring Boot</description>
+    <description>认证服务器，申请、校验token使用</description>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>com.xmxe</groupId>
@@ -20,6 +21,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -28,7 +30,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-           
         </dependency>
 
         <dependency>
@@ -49,7 +50,6 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>

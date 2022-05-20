@@ -1,13 +1,12 @@
-#×ÊÔ´·şÎñÅäÖÃÎÄ¼ş
 server:
   port: 8083
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zhang?useUnicode=true&characterEncoding=utf8&useSSL=true
-    username: ##### ÕâÀïÒª¸Ä³É×Ô¼ºµÄÕËºÅÃÜÂë
-    password: #####
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=Asia/Shanghai # æˆ–è€…serverTimezone=GMT%2B8 ä»£è¡¨åŒ—äº¬ä¸œå…«åŒº
+    username: root
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
 
 mybatis:
@@ -16,7 +15,7 @@ mybatis:
 logging:
   level:
     com.dpb: debug
-    #Ö»ÄÜÓĞ¹«Ô¿µØÖ·
+    #åªèƒ½æœ‰å…¬é’¥åœ°å€
 rsa:
   key:
-    pubKeyFile: c:\tools\auth_key\id_key_rsa.pub
+    pubKeyFile: c:\e\import\id_key_rsa.pub
