@@ -10,7 +10,8 @@ import java.util.Map;
 
 @RestController
 public class JWTController {
-	// 根目录映射 Get访问方式 直接返回一个字符串
+
+	// 无需登录
 	@RequestMapping("/")
 	Map<String, String> index() {
 		// 返回map会变成JSON key value方式
@@ -19,10 +20,9 @@ public class JWTController {
 		return map;
 	}
 
-	// 路由映射到/users
+	// 登陆访问
 	@RequestMapping(value = "/users", produces="application/json;charset=UTF-8")
 	public String usersList() {
-
 		ArrayList<String> users =  new ArrayList<String>(){{
 			add("freewolf");
 			add("tom");
@@ -32,12 +32,18 @@ public class JWTController {
 		return JSONResult.fillResultString(0, "", users);
 	}
 
+	/**
+	 * 访问hello接口 --- hasAuthority("AUTH_WRITE")
+	 */
 	@RequestMapping(value = "/hello", produces="application/json;charset=UTF-8")
 	public String hello() {
 		ArrayList<String> users =  new ArrayList<String>(){{ add("hello"); }};
 		return JSONResult.fillResultString(0, "", users);
 	}
 
+	/**
+	 * 访问world接口 --- hasRole("ADMIN")
+	 */
 	@RequestMapping(value = "/world", produces="application/json;charset=UTF-8")
 	public String world() {
 		ArrayList<String> users =  new ArrayList<String>(){{ add("world"); }};

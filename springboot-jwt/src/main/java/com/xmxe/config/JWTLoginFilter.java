@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 下面实现JWTLoginFilter 这个Filter比较简单，除了构造函数需要重写三个方法。
+ * JWTLoginFilter 这个Filter比较简单，除了构造函数需要重写三个方法。
  * attemptAuthentication - 登录时需要验证时候调用
  * successfulAuthentication - 验证成功后调用
  * unsuccessfulAuthentication - 验证失败后调用，这里直接灌入500错误返回，由于同一JSON返回，HTTP就都返回200了
@@ -30,33 +30,53 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		setAuthenticationManager(authManager);
 	}
 
+	/**
+	 * 登陆验证时调用
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws AuthenticationException
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	@Override
-	public Authentication attemptAuthentication(
-			HttpServletRequest req, HttpServletResponse res)
+	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException, IOException, ServletException {
-
 		// JSON反序列化成 AccountCredentials
 		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
 
-		// 返回一个验证令牌
+		// authenticate()⽅法中，调⽤了 UserDetailsService.loadUserByUsername()并进⾏了密码校验，校验成功就构造⼀个认证过的 UsernamePasswordAuthenticationToken 对象放⼊ SecurityContext
+		// 此方法返回用户校验成功后 successfulAuthentication()方法的Authentication参数
 		return getAuthenticationManager().authenticate(
-				new UsernamePasswordAuthenticationToken(
-						creds.getUsername(),
-						creds.getPassword()
-				)
+				new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword())
 		);
 	}
 
+	/**
+	 * 验证成功后调用
+	 * @param req
+	 * @param res
+	 * @param chain
+	 * @param auth
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	@Override
-	protected void successfulAuthentication(
-			HttpServletRequest req,
-			HttpServletResponse res, FilterChain chain,
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
-
+		// 用户校验成功后根据用户名生成token 通过res(HttpServletResponse)返回token
 		TokenAuthenticationService.addAuthentication(res, auth.getName());
 	}
 
 
+	/**
+	 * 校验失败后调用
+	 * @param request
+	 * @param response
+	 * @param failed
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
 

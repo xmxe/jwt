@@ -24,7 +24,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		// 认证逻辑
 		if (name.equals("admin") && password.equals("123456")) {
-
 			// 这里设置权限和角色
 			ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 			authorities.add( new GrantedAuthorityImpl("ROLE_ADMIN") );
