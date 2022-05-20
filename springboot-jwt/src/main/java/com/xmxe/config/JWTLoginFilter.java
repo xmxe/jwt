@@ -45,7 +45,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		// JSON反序列化成 AccountCredentials
 		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
 
-		// authenticate()⽅法中，调⽤了 UserDetailsService.loadUserByUsername()并进⾏了密码校验，校验成功就构造⼀个认证过的 UsernamePasswordAuthenticationToken 对象放⼊ SecurityContext
+		// authenticate()⽅法中，根据UserDetailsService.loadUserByUsername()的真实用户信息进⾏了密码校验，校验成功就构造⼀个认证过的 UsernamePasswordAuthenticationToken 对象放⼊ SecurityContext
 		// 此方法返回用户校验成功后 successfulAuthentication()方法的Authentication参数
 		return getAuthenticationManager().authenticate(
 				new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword())

@@ -58,7 +58,7 @@ public class JwtAuthenticationController {
 		Objects.requireNonNull(password);
 
 		try {
-			// authenticate()⽅法中，调⽤了 UserDetailsService.loadUserByUsername()并进⾏了密码校验，校验成功就构造⼀个
+			// authenticate()⽅法中，根据UserDetailsService.loadUserByUsername()的真实用户信息进⾏了密码校验，校验成功就构造⼀个
 			// 认证过的 UsernamePasswordAuthenticationToken 对象放⼊SecurityContext
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
