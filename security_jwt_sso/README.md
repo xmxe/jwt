@@ -1,4 +1,4 @@
-搬运自 https://github.com/Oxygen404/Springsecurity
+搬运自 https://github.com/Oxygen404/Springsecurity 原博[点这里](https://blog.csdn.net/qq_38526573/article/details/103409430)
 
 --- 
 #### Springsecurity 单点登录SSO解决方案之SpringSecurity+JWT实现
