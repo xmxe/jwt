@@ -11,8 +11,9 @@
 
 	<modules>
 		<module>gradle-jwt</module>
-		<module>springboot-jwt</module>
 		<module>security_jwt_sso</module>
+		<module>springboot-jwt</module>
+		<module>springboot-jwt2</module>
     </modules>
 
 	<properties>
