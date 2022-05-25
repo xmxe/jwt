@@ -1,7 +1,3 @@
-- [demo地址](https://www.javainuse.com/spring/boot-jwt)
-
----
-
 测试:
 1. 请求http://localhost:8082/hello 返回
 ~~~json

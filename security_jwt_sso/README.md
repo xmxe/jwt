@@ -1,4 +1,4 @@
-搬运自 https://github.com/Oxygen404/Springsecurity 原博[点这里](https://blog.csdn.net/qq_38526573/article/details/103409430)
+搬运自 https://github.com/Oxygen404/Springsecurity
 
 --- 
 #### Springsecurity 单点登录SSO解决方案之SpringSecurity+JWT实现
@@ -52,7 +52,3 @@ Authorization:Bearer eyJhbGciOiJSUzI1NiJ9.eyJ1c2VyIjoie1wiaWRcIjpudWxsLFwidXNlcm
 update
 ~~~
 成功！
-
---- 
-##### 相关文章
-- [Spring Security + JWT 实现单点登录，还有谁不会？？](https://mp.weixin.qq.com/s/5xt0i7Bwj4-Io-lYDkySug)
