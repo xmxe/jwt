@@ -24,10 +24,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
 
 	/**
 	 * 认证失败时调用
-	 * @param request
-	 * @param response
-	 * @param authException
-	 * @throws IOException
 	 */
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,

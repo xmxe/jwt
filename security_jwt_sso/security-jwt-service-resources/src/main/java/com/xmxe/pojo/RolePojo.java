@@ -6,7 +6,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- 完成数据认证的逻辑
+ * 完成数据认证的逻辑
  */
 @Data
 public class RolePojo implements GrantedAuthority {
@@ -21,4 +21,3 @@ public class RolePojo implements GrantedAuthority {
         return roleName;
     }
 }
-

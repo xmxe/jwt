@@ -31,12 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    //指定认证对象的来源
+    /**
+     * 指定认证对象的来源
+     */
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
-    //SpringSecurity配置信息
+    /**
+     * SpringSecurity配置信息
+     */
     public void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()

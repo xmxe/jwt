@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- 完成数据认证的逻辑
+ * 完成数据认证的逻辑
  */
 @Data
 public class UserPojo implements UserDetails {

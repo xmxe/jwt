@@ -13,7 +13,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	// 设置 HTTP 验证规则
+	/**
+	 * 设置 HTTP 验证规则
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// 关闭csrf验证

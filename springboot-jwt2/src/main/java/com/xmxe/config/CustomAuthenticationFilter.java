@@ -32,10 +32,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	}
 	/**
 	 * 登录验证时调用
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws AuthenticationException
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -49,8 +45,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 				authRequest = new UsernamePasswordAuthenticationToken(authenticationBean.getUsername(), authenticationBean.getPassword());
 			}catch (IOException e) {
 				e.printStackTrace();
-				authRequest = new UsernamePasswordAuthenticationToken(
-						"", "");
+				authRequest = new UsernamePasswordAuthenticationToken("", "");
 			}finally {
 				setDetails(request, authRequest);
 				// 调用此方法开始一系列校验，最后调⽤了 UserDetailsService.loadUserByUsername()并进⾏了密码校验
@@ -63,16 +58,9 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
 	/**
 	 * 验证成功后调用
-	 * @param req
-	 * @param res
-	 * @param chain
-	 * @param auth
-	 * @throws IOException
-	 * @throws ServletException
 	 */
 	@Override
-	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
-	                                        Authentication auth) throws IOException, ServletException {
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException{
 		// 默认跳转到"/" ,并记录为登陆状态，所以要使用token去做是否登录校验的话不能使用下面的这个父类的方法，而是直接返回token
 		// super.successfulAuthentication(req,res,chain,auth);
 
@@ -84,11 +72,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
 	/**
 	 * 校验失败后调用
-	 * @param request
-	 * @param response
-	 * @param failed
-	 * @throws IOException
-	 * @throws ServletException
 	 */
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {

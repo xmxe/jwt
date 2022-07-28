@@ -9,7 +9,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 /**
- 提供公钥私钥的配置类
+ * 提供公钥私钥的配置类
  */
 @Data
 @ConfigurationProperties(prefix = "rsa.key")
@@ -24,7 +24,6 @@ public class RsaKeyProperties {
 
     /**
      * 系统启动的时候触发
-     * @throws Exception
      */
     @PostConstruct
     public void createRsaKey() throws Exception {

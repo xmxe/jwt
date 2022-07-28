@@ -39,8 +39,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * 校验时的加密算法
-	 * @param authenticationManagerBuilder
-	 * @throws Exception
 	 */
 	@Autowired
 	public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -88,8 +86,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * /login请求交由CustomAuthenticationFilter处理
-	 * @return
-	 * @throws Exception
 	 */
 	@Bean
 	CustomAuthenticationFilter customAuthenticationFilter() throws Exception {

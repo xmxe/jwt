@@ -33,11 +33,6 @@ public class TokenVerifyFilter  extends BasicAuthenticationFilter {
 
     /**
      * 接受请求时校验是否携带token 并解析
-     * @param request
-     * @param response
-     * @param chain
-     * @throws IOException
-     * @throws ServletException
      */
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

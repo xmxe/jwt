@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper {
 
     //@Select("select * from t_user where username = #{userName}")
-    public UserPojo queryByUserName(@Param("userName") String userName);
+    UserPojo queryByUserName(@Param("userName") String userName);
 }

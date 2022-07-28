@@ -33,8 +33,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 生成token
-	 * @param claims
-	 * @return
 	 */
 	private String generateToken(Map<String, Object> claims) {
 		Date expirationDate = new Date(System.currentTimeMillis() + expiration);
@@ -43,8 +41,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 解析token
-	 * @param token
-	 * @return
 	 */
 	private Claims getClaimsFromToken(String token) {
 		Claims claims;
@@ -59,8 +55,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 根据userDetails生成token
-	 * @param userDetails
-	 * @return
 	 */
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>(2);
@@ -71,8 +65,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 根据token获取用户名
-	 * @param token
-	 * @return
 	 */
 	public String getUsernameFromToken(String token) {
 		String username;
@@ -89,8 +81,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 验证token是否过期
-	 * @param token
-	 * @return
 	 */
 	public Boolean isTokenExpired(String token) {
 		try {
@@ -104,8 +94,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 刷新token
-	 * @param token
-	 * @return
 	 */
 	public String refreshToken(String token) {
 		String refreshedToken;
@@ -123,9 +111,6 @@ public class JwtTokenUtil implements Serializable {
 
 	/**
 	 * 校验token和userdetails是否匹配
-	 * @param token
-	 * @param userDetails
-	 * @return
 	 */
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		JwtUser user = (JwtUser) userDetails;

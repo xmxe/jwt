@@ -49,9 +49,6 @@ public class JwtAuthenticationController {
 
 	/**
 	 * 校验用户是否正确登录
-	 * @param username
-	 * @param password
-	 * @throws Exception
 	 */
 	private void authenticate(String username, String password) throws Exception {
 		Objects.requireNonNull(username);

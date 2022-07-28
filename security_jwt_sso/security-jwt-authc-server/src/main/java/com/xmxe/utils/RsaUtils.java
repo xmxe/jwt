@@ -19,7 +19,6 @@ public class RsaUtils {
      *
      * @param filename 公钥保存路径，相对于classpath
      * @return 公钥对象
-     * @throws Exception
      */
     public static PublicKey getPublicKey(String filename) throws Exception {
         byte[] bytes = readFile(filename);
@@ -31,7 +30,6 @@ public class RsaUtils {
      *
      * @param filename 私钥保存路径，相对于classpath
      * @return 私钥对象
-     * @throws Exception
      */
     public static PrivateKey getPrivateKey(String filename) throws Exception {
         byte[] bytes = readFile(filename);
@@ -42,8 +40,6 @@ public class RsaUtils {
      * 获取公钥
      *
      * @param bytes 公钥的字节形式
-     * @return
-     * @throws Exception
      */
     private static PublicKey getPublicKey(byte[] bytes) throws Exception {
         bytes = Base64.getDecoder().decode(bytes);
@@ -56,8 +52,6 @@ public class RsaUtils {
      * 获取密钥
      *
      * @param bytes 私钥的字节形式
-     * @return
-     * @throws Exception
      */
     private static PrivateKey getPrivateKey(byte[] bytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         bytes = Base64.getDecoder().decode(bytes);

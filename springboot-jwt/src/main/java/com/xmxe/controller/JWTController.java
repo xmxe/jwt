@@ -11,7 +11,9 @@ import java.util.Map;
 @RestController
 public class JWTController {
 
-	// 无需登录
+	/**
+	 * 无需登录
+	 */
 	@RequestMapping("/")
 	Map<String, String> index() {
 		// 返回map会变成JSON key value方式
@@ -20,7 +22,9 @@ public class JWTController {
 		return map;
 	}
 
-	// 登陆访问
+	/**
+	 * 登陆访问
+	 */
 	@RequestMapping(value = "/users", produces="application/json;charset=UTF-8")
 	public String usersList() {
 		ArrayList<String> users =  new ArrayList<String>(){{

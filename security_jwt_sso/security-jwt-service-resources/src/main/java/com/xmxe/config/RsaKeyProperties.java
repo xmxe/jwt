@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import java.security.PublicKey;
 
 /**
- 编写读取公钥的配置类
+ * 编写读取公钥的配置类
  */
 @Data
 @ConfigurationProperties(prefix = "rsa.key")
@@ -23,7 +23,6 @@ public class RsaKeyProperties {
 
     /**
      * 系统启动的时候触发
-     * @throws Exception
      */
     @PostConstruct
     public void createRsaKey() throws Exception {
