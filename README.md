@@ -6,4 +6,5 @@
 | [springboot-jwt2](https://github.com/xmxe/jwt/tree/master/springboot-jwt2) | [万字长文,Spring Security](https://segmentfault.com/a/1190000023052493)                             |
 
 - [还分不清 Cookie、Session、Token、JWT？](https://mp.weixin.qq.com/s/skZL7RR3SftrB4SNZx59ZA)
+- [JWT实现登录认证+Token自动续期方案](https://mp.weixin.qq.com/s/i73E4zbTh_JCuRCqH_NoVQ)
 
