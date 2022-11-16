@@ -54,8 +54,8 @@
     - 简洁：JWT Token数据量小，传输速度也很快
     - 因为JWT Token是以JSON加密形式保存在客户端的，所以JWT是跨语言的，原则上任何web形式都支持
     - 不需要在服务端保存会话信息，也就是说不依赖于cookie和session，所以没有了传统session认证的弊端，特别适用于分布式微服务
-    - 单点登录友好：使用Session进行身份认证的话，由于cookie无法跨域，难以实现单点登录。但是，使用token进行认证的话， token可以被保存在客户端的任意位置的内存中，不一定是cookie，所以不依赖cookie，不会存在这些问题
-    - 适合移动端应用：使用Session进行身份认证的话，需要保存一份信息在服务器端，而且这种方式会依赖到Cookie（需要 Cookie 保存 SessionId），所以不适合移动端
+    - 单点登录友好：使用Session进行身份认证的话，由于cookie无法跨域，难以实现单点登录。但是，使用token进行认证的话，token可以被保存在客户端的任意位置的内存中，不一定是cookie，所以不依赖cookie，不会存在这些问题
+    - 适合移动端应用：使用Session进行身份认证的话，需要保存一份信息在服务器端，而且这种方式会依赖到Cookie（需要Cookie保存SessionId），所以不适合移动端
     因为这些优势，目前无论单体应用还是分布式应用，都更加推荐用JWT token的方式进行用户认证
 
 ##### JWT结构
@@ -75,7 +75,7 @@ JWT头是一个描述JWT元数据的JSON对象，alg属性表示签名使用的�
 
 2. Payload
 
-  有效载荷部分，是JWT的主体内容部分，也是一个JSON对象，包含需要传递的数据。 JWT指定七个默认字段供选择
+  有效载荷部分，是JWT的主体内容部分，也是一个JSON对象，包含需要传递的数据。JWT指定七个默认字段供选择
 ```
 iss：发行人
 exp：到期时间
@@ -108,5 +108,5 @@ HMACSHA256(base64UrlEncode(header)+"."+base64UrlEncode(payload),secret)
 
 ---
 
-- [还分不清 Cookie、Session、Token、JWT？](https://mp.weixin.qq.com/s/skZL7RR3SftrB4SNZx59ZA)
+- [还分不清Cookie、Session、Token、JWT？](https://mp.weixin.qq.com/s/skZL7RR3SftrB4SNZx59ZA)
 - [JWT实现登录认证+Token自动续期方案](https://mp.weixin.qq.com/s/i73E4zbTh_JCuRCqH_NoVQ)
