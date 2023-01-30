@@ -6,9 +6,9 @@
 | [springboot-jwt2](https://github.com/xmxe/jwt/tree/master/springboot-jwt2) | [万字长文,Spring Security](https://segmentfault.com/a/1190000023052493)                             |
 
 ---
-#### JWT简介
+### JWT简介
 
-##### 什么是JWT
+#### 什么是JWT
 
 在介绍JWT之前，我们先来回顾一下利用token进行用户身份验证的流程：
 1. 客户端使用用户名和密码请求登录
@@ -37,7 +37,7 @@
 6. 验证通过后，后端解析出JWT Token中包含的用户信息，进行其他逻辑操作(一般是根据用户信息得到权限等)，返回结果
 ![](https://img-blog.csdnimg.cn/img_convert/900b3e81f832b2f08c2e8aabb540536a.png)
 
-##### 为什么要用JWT
+#### 为什么要用JWT
 
 1. 传统Session认证的弊端
 我们知道HTTP本身是一种无状态的协议，这就意味着如果用户向我们的应用提供了用户名和密码来进行用户认证，认证通过后HTTP协议不会记录下认证后的状态，那么下一次请求时，用户还要再一次进行认证，因为根据HTTP协议，我们并不知道是哪个用户发出的请求，所以为了让我们的应用能识别是哪个用户发出的请求，我们只能在用户首次登录成功后，在服务器存储一份用户登录的信息，这份登录信息会在响应时传递给浏览器，告诉其保存为cookie，以便下次请求时发送给我们的应用，这样我们的应用就能识别请求来自哪个用户了，这是传统的基于session认证的过程
@@ -58,7 +58,7 @@
     - 适合移动端应用：使用Session进行身份认证的话，需要保存一份信息在服务器端，而且这种方式会依赖到Cookie（需要Cookie保存SessionId），所以不适合移动端
     因为这些优势，目前无论单体应用还是分布式应用，都更加推荐用JWT token的方式进行用户认证
 
-##### JWT结构
+#### JWT结构
 JWT由3部分组成：标头(Header)、有效载荷(Payload)和签名(Signature)。在传输的时候，会将JWT的3部分分别进行Base64编码后用.进行连接形成最终传输的字符串
 
 ```
@@ -107,6 +107,8 @@ HMACSHA256(base64UrlEncode(header)+"."+base64UrlEncode(payload),secret)
  > - signature由于使用了不可逆的加密算法，无法解码出原文，它的作用是校验token有没有被篡改。服务端获取header中的加密算法之后，利用该算法加上secretKey对header、payload进行加密，比对加密后的数据和客户端发送过来的是否一致。注意secretKey只能保存在服务端，而且对于不同的加密算法其含义有所不同，一般对于MD5类型的摘要加密算法，secretKey实际上代表的是盐值
 
 ---
+
+### 相关文章
 
 - [还分不清Cookie、Session、Token、JWT？](https://mp.weixin.qq.com/s/skZL7RR3SftrB4SNZx59ZA)
 - [JWT实现登录认证+Token自动续期方案](https://mp.weixin.qq.com/s/i73E4zbTh_JCuRCqH_NoVQ)
