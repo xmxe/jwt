@@ -20,6 +20,7 @@ public class RsaKeyProperties {
     private String priKeyFile;
 
     private PublicKey publicKey;
+
     private PrivateKey privateKey;
 
     /**

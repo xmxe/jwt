@@ -32,7 +32,7 @@ public class TokenVerifyFilter  extends BasicAuthenticationFilter {
     }
 
     /**
-     * 接受请求时校验是否携带token 并解析
+     * 接受请求时校验是否携带token并解析
      */
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -43,16 +43,16 @@ public class TokenVerifyFilter  extends BasicAuthenticationFilter {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             PrintWriter out = response.getWriter();
-            Map resultMap = new HashMap();
+            Map<String,Object> resultMap = new HashMap<>();
             resultMap.put("code", HttpServletResponse.SC_FORBIDDEN);
             resultMap.put("msg", "请登录！");
             out.write(new ObjectMapper().writeValueAsString(resultMap));
             out.flush();
             out.close();
         } else {
-            //如果携带了正确格式的token要先得到token
+            // 如果携带了正确格式的token要先得到token
             String token = header.replace("Bearer ", "");
-            //验证tken是否正确
+            // 验证token是否正确
             Payload<UserPojo> payload = JwtUtils.getInfoFromToken(token, prop.getPublicKey(), UserPojo.class);
             UserPojo user = payload.getUserInfo();
             if(user!=null){

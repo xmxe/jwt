@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)//开启基于方法的认证 只有添加此注解 才能在方法上使用类似于@PreAuthorize("hasRole(‘admin‘)")来控制权限
+@EnableGlobalMethodSecurity(prePostEnabled = true)//开启基于方法的认证 只有添加此注解才能在方法上使用类似于@PreAuthorize("hasRole(‘admin‘)")来控制权限
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// 自定义用户访问无权限资源时的异常

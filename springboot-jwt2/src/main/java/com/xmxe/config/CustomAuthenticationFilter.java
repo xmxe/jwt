@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 接收json格式的前端请求
- * 只处理/login请求
+ * 接收json格式的前端请求,只处理/login请求
  */
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -63,12 +62,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException{
 		// 默认跳转到"/" ,并记录为登陆状态，所以要使用token去做是否登录校验的话不能使用下面的这个父类的方法，而是直接返回token
 		// super.successfulAuthentication(req,res,chain,auth);
-
 		String token = jwtTokenUtil.generateToken((UserDetails) auth.getPrincipal());
 		res.getWriter().write(token);
 
 	}
-
 
 	/**
 	 * 校验失败后调用

@@ -32,7 +32,6 @@ public class JWTController {
 			add("tom");
 			add("jerry");
 		}};
-
 		return JSONResult.fillResultString(0, "", users);
 	}
 

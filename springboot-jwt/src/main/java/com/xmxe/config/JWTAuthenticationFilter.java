@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * JWTAuthenticationFilter，这也是个拦截器，它拦截所有需要JWT的请求，
- * 然后调用TokenAuthenticationService类的静态方法去做JWT验证。
+ * JWTAuthenticationFilter，这也是个拦截器，它拦截所有需要JWT的请求，然后调用TokenAuthenticationService类的静态方法去做JWT验证。
  */
 public class JWTAuthenticationFilter extends GenericFilterBean {
 

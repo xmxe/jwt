@@ -43,14 +43,14 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 接收前端发送的json流
             UserPojo sysUser = new ObjectMapper().readValue(request.getInputStream(), UserPojo.class);
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(sysUser.getUsername(), sysUser.getPassword());
-            // 验证用户 成功时返回给successfulAuthentication()的Authentication参数
+            // 根据UserDetailsService.loadUserByUsername()验证,验证用户成功时返回给successfulAuthentication()的Authentication参数
             return authenticationManager.authenticate(authRequest);
         }catch (Exception e){
             try {
                 response.setContentType("application/json;charset=utf-8");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 PrintWriter out = response.getWriter();
-                Map resultMap = new HashMap();
+                Map<String,Object> resultMap = new HashMap<>();
                 resultMap.put("code", HttpServletResponse.SC_UNAUTHORIZED);
                 resultMap.put("msg", "用户名或密码错误！");
                 out.write(new ObjectMapper().writeValueAsString(resultMap));
@@ -78,7 +78,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();
-            Map resultMap = new HashMap();
+            Map<String,Object> resultMap = new HashMap<>();
             resultMap.put("code", HttpServletResponse.SC_OK);
             resultMap.put("msg", "认证通过！");
             out.write(new ObjectMapper().writeValueAsString(resultMap));

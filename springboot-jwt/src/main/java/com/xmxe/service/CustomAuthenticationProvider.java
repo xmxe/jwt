@@ -18,7 +18,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		// 获取认证的用户名 & 密码
+		// 获取认证的用户名&密码
 		String name = authentication.getName();
 		String password = authentication.getCredentials().toString();
 

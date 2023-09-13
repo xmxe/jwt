@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	/**
-	 * 设置 HTTP 验证规则
+	 * 设置HTTP验证规则
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -22,9 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 				// 对请求进行认证
 				.authorizeRequests()
-				// 所有 / 的所有请求 都放行
+				// 所有"/"的所有请求都放行
 				.antMatchers("/").permitAll()
-				// 所有 /login 的POST请求 都放行
+				// 所有"/login"的POST请求都放行
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				// 权限检查
 				.antMatchers("/hello").hasAuthority("AUTH_WRITE")
@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 所有请求需要身份认证
 				.anyRequest().authenticated()
 				.and()
-				// 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
+				// 添加一个过滤器,所有访问"/login"的请求交给JWTLoginFilter来处理.这个类处理所有的JWT相关内容
 				.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 				// 添加一个过滤器验证其他请求的Token是否合法
 				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -43,6 +43,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// 使用自定义身份验证组件
 		auth.authenticationProvider(new CustomAuthenticationProvider());
-
 	}
 }

@@ -40,7 +40,7 @@ public class TokenAuthenticationService {
 				// 签名设置
 				.signWith(SignatureAlgorithm.HS512, SECRET)
 				.compact();
-		// 将 JWT 写入 body
+		// 将JWT写入body
 		try {
 			response.setContentType("application/json");
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -57,18 +57,17 @@ public class TokenAuthenticationService {
 		// 从Header中拿到token
 		String token = request.getHeader(HEADER_STRING);
 		if (token != null) {
-			// 解析 Token
+			// 解析Token
 			Claims claims = Jwts.parser()
 					// 验签
 					.setSigningKey(SECRET)
-					// 去掉 Bearer
+					// 去掉Bearer
 					.parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
 					.getBody();
 			// 拿用户名
 			String user = claims.getSubject();
-			// 得到 权限（角色）
+			// 得到权限（角色）
 			List<GrantedAuthority> authorities =  AuthorityUtils.commaSeparatedStringToAuthorityList((String) claims.get("authorities"));
-
 			// 返回验证令牌
 			return user != null ? new UsernamePasswordAuthenticationToken(user, null, authorities) : null;
 		}

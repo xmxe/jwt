@@ -34,11 +34,10 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException, IOException{
-		// JSON反序列化成 AccountCredentials
+		// JSON反序列化成AccountCredentials
 		AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
-
-		// authenticate()⽅法中，根据UserDetailsService.loadUserByUsername()的真实用户信息进⾏了密码校验，校验成功就构造⼀个认证过的 UsernamePasswordAuthenticationToken 对象放⼊ SecurityContext
-		// 此方法返回用户校验成功后 successfulAuthentication()方法的Authentication参数
+		// authenticate()⽅法中，根据UserDetailsService.loadUserByUsername()的真实用户信息进⾏了密码校验，校验成功就构造⼀个认证过的UsernamePasswordAuthenticationToken对象放⼊SecurityContext
+		// 此方法返回用户校验成功后即为successfulAuthentication()方法的Authentication参数
 		return getAuthenticationManager().authenticate(
 				new UsernamePasswordAuthenticationToken(creds.getUsername(), creds.getPassword())
 		);
@@ -59,7 +58,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	 */
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-
 		response.setContentType("application/json");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getOutputStream().println(JSONResult.fillResultString(500, "Internal Server Error!!!", null));

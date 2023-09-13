@@ -57,13 +57,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().
-				// ALWAYS 总是创建HttpSession. IF_REQUIRED Spring Security只会在需要时创建一个HttpSession
+				// ALWAYS总是创建HttpSession. IF_REQUIRED Spring Security只会在需要时创建一个HttpSession
 				// NEVER Spring Security不会创建HttpSession，但如果它已经存在，将可以使用HttpSession
 				// STATELESS Spring Security永远不会创建HttpSession，它不会使用HttpSession来获取SecurityContext
 				sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
